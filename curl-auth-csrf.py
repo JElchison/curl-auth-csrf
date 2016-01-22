@@ -12,7 +12,7 @@ import lxml.html
 VERSION = '1.0.0'
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 
 def parse_arguments():
