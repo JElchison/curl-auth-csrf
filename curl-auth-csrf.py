@@ -161,12 +161,12 @@ def main():
     # parse login page
     ###################
 
-    logging.debug('Parsing result from login request ...')
+    logging.debug('Parsing login page ...')
     login_form = identify_login_form(args, result)
     password_field_name = identify_password_field_name(args, login_form)
     logging.debug('Initializing data dictionary ...')
     data = setup_data_dictionary(args, login_form, password_field_name, password)
-    logging.debug('Parsing response URL ...')
+    logging.debug('Calculating action URL ...')
     action_url = calculate_action_url(login_form, result)
 
     ####################
