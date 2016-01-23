@@ -106,11 +106,13 @@ Notes:
 
 ## Limitations
 
-This script will not handle the following scenarios:
+This script only handles standard logins involving a single form submission with a username, password, and hidden fields for CSRF.  It will not handle the following scenarios:
 * Logins involving [CAPTCHA](https://en.wikipedia.org/wiki/CAPTCHA)
 * Logins involving re-authentications (i.e. multiple successive password prompts)
 * Logins involving [two-factor authentication](https://en.wikipedia.org/wiki/Two-factor_authentication)
 * Logins involving any client-side password transformations (i.e. passing a hashed password to the server)
+
+If all you need is [basic HTTP authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), this script is overkill.  [cURL](http://curl.haxx.se/) and [Wget](https://www.gnu.org/software/wget/) can do that out-of-box.
 
 ## Disclaimer
 
