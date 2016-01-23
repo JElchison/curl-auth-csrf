@@ -80,7 +80,7 @@ pass foobar.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i http://foo
 
 Note the calls to `tr` and `sed`, which remove the trailing newline that pass adds after the password.  See discussion at [#1](https://github.com/JElchison/curl-auth-csrf/issues/1).
 
-## Example
+## Examples
 
 If your username is `bob@email.com` for `pbs.org`, following is how you might normally scrape the zip code from your user profile:
 
@@ -91,7 +91,7 @@ curl -s https://account.pbs.org/accounts/profile/ | grep Zip
 However, since doing so requires being logged in, here's one way to do it using curl-auth-csrf:
 
 ```
-pass pbs.org/bob@email.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
+pass pbs.org | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
 ```
 
 Notes:
@@ -101,6 +101,12 @@ Notes:
 * The URL of the logout page is `https://account.pbs.org/accounts/logout/`
 * The URL we want to scrap the zip code from is `https://account.pbs.org/accounts/profile/`
 * The information scraped is the only data written to stdout, so we can grep over it to pull what we're looking for
+
+Another example, with a logout page and multiple pages fetched while logged in:
+
+```
+pass thefastpark.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://www.thefastpark.com/ -d username=bob@email.com -u https://www.thefastpark.com/myrewards/history/ -j https://www.thefastpark.com/myrewards/logout/ https://www.thefastpark.com/myrewards/history/ https://www.thefastpark.com/myrewards/redeempoints/ | egrep -i '(Total Points|points available)'
+```
 
 ## Limitations
 
