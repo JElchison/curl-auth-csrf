@@ -72,7 +72,7 @@ Note the `-n` to avoid a spurious newline after the password.
 
 However, this defeats the purpose, as the password still shows up in the shell history.  (Exception: In [Bash](https://www.gnu.org/software/bash/), start the line with an initial space, which will prevent the line from showing up in the history.  Refer to [Bash documentation](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html) on HISTCONTROL and HISTIGNORE.)
 
-A better way to handle this is with a CLI password management tool, such as [pass](http://www.passwordstore.org/).  This is the recommended approach.  For example:
+A better way to handle this is with a CLI password management tool, such as [pass](http://www.passwordstore.org/).  This is the recommended approach.  For example, assuming that your password is managed by pass and already encrypted under the handle `foobar.com`:
 
 ```
 pass foobar.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
