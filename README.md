@@ -14,7 +14,7 @@ Useful for scraping HTML normally only accessible when logged in.
 * To support multiple password fields within the same login form (though rare), script allows specifying HTML field name for password
 * Handles HTTPS and [HTTP 302](https://en.wikipedia.org/wiki/HTTP_302) redirects
 * Allows validating login success by testing resultant URL and/or content on resultant page
-* Session (cookie) management during every script run
+* Uses Python [Requests](http://docs.python-requests.org/en/latest/) HTTP library for session (cookie) management during every script run
 * Allows an arbitrary number of pages to be fetched while logged in
 * Optionally performs logout (to avoid leaving a session open from the server's perspective)
 * Allows [User-Agent](https://en.wikipedia.org/wiki/User_agent) string spoofing (chooses a "safe" default if not otherwise specified)
