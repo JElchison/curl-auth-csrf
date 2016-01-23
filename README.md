@@ -116,7 +116,7 @@ This script will not handle the following scenarios:
 
 Please don't abuse this tool.  Only use it with accounts that rightfully belong to you.  If you use this tool with someone else's login, you are solely responsible and may face legal consequences.
 
-This script isn't perfect.  See the [Limitations](#Limitations) section above; also, there may be defects.  Beware that some Internet services won't take kindly if you login incorrectly (i.e. not in a normal browser).  Your using this tool means that you accept full responsibility for anything that might happen.
+This script isn't perfect.  See the [Limitations](#limitations) section above; also, there may be defects.  Beware that some Internet services won't take kindly if you login incorrectly (i.e. not in a normal browser).  Your using this tool means that you accept full responsibility for anything that might happen.
 
 ## Debugging
 
