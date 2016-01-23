@@ -12,6 +12,7 @@ Useful for scraping HTML only accessible when logged in.
 * To support multiple login forms on the page, script allows specifying HTML id of form
 * To support multiple password fields within the same login form, script allows specifying HTML field name for password
 * Allows validating login success by testing resultant URL and/or content on resultant page
+* Session (cookie) management during every script run
 * Allows an arbitrary number of pages to be fetched after login
 * Optionally performs logout (to avoid leaving a session open from the server's perspective)
 * Allows User-Agent string spoofing (chooses a "safe" default if not otherwise specified)
@@ -77,10 +78,19 @@ Note the calls to `tr` and `sed`, which remove the trailing newline outputted af
 
 ## Example
 
-If your username is `bob@email.com` for pbs.org, following is how you might scrape the zip code from your user profile:
+If your username is `bob@email.com` for pbs.org, following is how you might normally scrape the zip code from your user profile:
+
+```
+curl -s https://account.pbs.org/accounts/profile/ | grep Zip
+```
+
+However, since doing so requires being logged in, here's one way how to do it using curl-auth-csrf:
+
 ```
 pass pbs.org/bob@email.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
 ```
+
+
 
 Notes:
 * The URL of the login page is https://account.pbs.org/accounts/login/
