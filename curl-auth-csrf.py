@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+# curl-auth-csrf.py
+#
+# Python tool that mimics cURL, but performs a login and handles any Cross-Site Request Forgery (CSRF) tokens.  Useful for scraping HTML normally only accessible when logged in.
+#
+# Copyright (C) 2016 Jonathan Elchison <JElchison@gmail.com>
+
+
 import logging
 import sys
 import argparse
