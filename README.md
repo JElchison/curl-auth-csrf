@@ -77,7 +77,7 @@ Note the calls to `tr` and `sed`, which remove the trailing newline outputted af
 
 ## Example
 
-If your username is `bob@email.com` for pbs.org, following is how you would scrape the zip code from your user profile:
+If your username is `bob@email.com` for pbs.org, following is how you might scrape the zip code from your user profile:
 ```
 pass pbs.org/bob@email.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
 ```
