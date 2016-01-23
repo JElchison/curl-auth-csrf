@@ -78,7 +78,7 @@ A better way to handle this is with a CLI password management tool, such as [pas
 pass foobar.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
 ```
 
-Note the calls to `tr` and `sed`, which remove the trailing newline that pass adds after the password.  See discussion at #1.
+Note the calls to `tr` and `sed`, which remove the trailing newline that pass adds after the password.  See discussion at [#1](https://github.com/JElchison/curl-auth-csrf/issues/1).
 
 ## Example
 
@@ -120,4 +120,4 @@ This script isn't perfect.  See the [Limitations](#limitations) section above; a
 
 ## Debugging
 
-If you're having trouble finding the right parameters, you can change the default debugging level from "WARNING" to "DEBUG" at the top of the Python script.  See discussion at #2.
+If you're having trouble finding the right parameters, you can change the default debugging level from "WARNING" to "DEBUG" at the top of the Python script.  See discussion at [#2](https://github.com/JElchison/curl-auth-csrf/issues/2).
