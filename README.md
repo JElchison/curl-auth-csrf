@@ -12,6 +12,7 @@ Useful for scraping HTML normally only accessible when logged in.
 * Automatically populates [HTTP Referer](https://en.wikipedia.org/wiki/HTTP_referer) header consistent with expected login sequence
 * To support multiple login forms on the page, script allows specifying HTML `id` of form
 * To support multiple password fields within the same login form (though rare), script allows specifying HTML field name for password
+* Handles HTTPS and [HTTP 302](https://en.wikipedia.org/wiki/HTTP_302) redirects
 * Allows validating login success by testing resultant URL and/or content on resultant page
 * Session (cookie) management during every script run
 * Allows an arbitrary number of pages to be fetched while logged in
@@ -95,11 +96,12 @@ pass pbs.org | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://accou
 ```
 
 Notes:
+
 * The URL of the login page is `https://account.pbs.org/accounts/login/`
 * The HTML input field of the username is `email`
 * The URL we're taken to upon successful login is `https://account.pbs.org/accounts/profile/`
 * The URL of the logout page is `https://account.pbs.org/accounts/logout/`
-* The URL we want to scrap the zip code from is `https://account.pbs.org/accounts/profile/`
+* The URL we want to scrape the zip code from is `https://account.pbs.org/accounts/profile/`
 * The information scraped is the only data written to stdout, so we can grep over it to pull what we're looking for
 
 Another example, with a logout page and multiple pages fetched while logged in:
@@ -111,6 +113,7 @@ pass thefastpark.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https
 ## Limitations
 
 This script only handles standard logins involving a single form submission with a username, password, and hidden fields for CSRF.  It will not handle the following scenarios:
+
 * Logins involving [CAPTCHA](https://en.wikipedia.org/wiki/CAPTCHA)
 * Logins involving re-authentications (i.e. multiple successive password prompts)
 * Logins involving [two-factor authentication](https://en.wikipedia.org/wiki/Two-factor_authentication)
