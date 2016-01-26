@@ -69,7 +69,7 @@ The script expects the password to be passed in via stdin, to avoid the plain-te
 echo ThisIsMyPassword | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
 ```
 
-Trailing newlines in the password are ignored.
+(Trailing newlines in the password are ignored.)
 
 However, this defeats the purpose, as the password still shows up in the shell history.  (Exception: In [Bash](https://www.gnu.org/software/bash/), start the line with an initial space, which will prevent the line from showing up in the history.  Refer to [Bash documentation](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html) on HISTCONTROL and HISTIGNORE.)
 
@@ -80,6 +80,11 @@ pass foobar.com | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob
 ```
 
 If nothing is passed in via stdin, then the user will be prompted for the password (interactively).
+
+```
+./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
+Password: 
+```
 
 ## Examples
 
