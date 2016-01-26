@@ -58,7 +58,7 @@ optional arguments:
   --version             show program's version number and exit
   -h, --help            show this help message and exit
 
-Actual password should be passed in via stdin.
+If actual password is not passed in via stdin, the user will be prompted.
 ```
 
 ### Password Entry
@@ -80,6 +80,8 @@ pass foobar.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i http://foo
 ```
 
 Note the calls to `tr` and `sed`, which remove the trailing newline that pass adds after the password.  See discussion at [#1](https://github.com/JElchison/curl-auth-csrf/issues/1).
+
+If nothing is passed in via stdin, then the user will be prompted for the password (interactively).
 
 ## Examples
 

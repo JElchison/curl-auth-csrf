@@ -10,6 +10,7 @@
 import logging
 import sys
 import argparse
+import getpass
 import urlparse
 import os
 import requests
@@ -46,7 +47,7 @@ def parse_arguments():
 
     parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
 
-    parser.epilog = "Actual password should be passed in via stdin.\n\nSee README for examples."
+    parser.epilog = "If actual password is not passed in via stdin, the user will be prompted.\n\nSee README for examples."
 
     return parser
 
@@ -149,8 +150,12 @@ def main():
     logging.debug('Parsing command line arguments ...')
     args = parser.parse_args()
 
-    logging.debug('Reading password from stdin ...')
-    password = sys.stdin.read()
+    if sys.stdin.isatty():
+        logging.debug('Prompting user for password ...')
+        password = getpass.getpass(stream=sys.stderr)
+    else:
+        logging.debug('Reading password from stdin ...')
+        password = sys.stdin.read()
 
     logging.debug('Allocating session ...')
     session = requests.session()
