@@ -79,7 +79,7 @@ A better way to handle this is with a CLI password management tool, such as [pas
 pass foobar.com | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
 ```
 
-If nothing is passed in via stdin, then the user will be prompted for the password (interactively).
+If nothing is passed in via stdin, then the user will be prompted for the password (interactively):
 
 ```
 ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
