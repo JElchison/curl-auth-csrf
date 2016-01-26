@@ -66,20 +66,16 @@ If actual password is not passed in via stdin, the user will be prompted.
 The script expects the password to be passed in via stdin, to avoid the plain-text password showing up in shell history.  A simple way to do this is as follows:
 
 ```
-echo -n ThisIsMyPassword | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
+echo ThisIsMyPassword | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
 ```
-
-Note the `-n` to avoid a spurious newline after the password.
 
 However, this defeats the purpose, as the password still shows up in the shell history.  (Exception: In [Bash](https://www.gnu.org/software/bash/), start the line with an initial space, which will prevent the line from showing up in the history.  Refer to [Bash documentation](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html) on HISTCONTROL and HISTIGNORE.)
 
 A better way to handle this is with a CLI password management tool, such as [pass](http://www.passwordstore.org/).  This is the recommended approach.  For example, assuming that your password is managed by pass and already encrypted under the handle `foobar.com`:
 
 ```
-pass foobar.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
+pass foobar.com | ./curl-auth-csrf.py -i http://foobar.com/login -d username=bob http://foobar.com/secure_page
 ```
-
-Note the calls to `tr` and `sed`, which remove the trailing newline that pass adds after the password.  See discussion at [#1](https://github.com/JElchison/curl-auth-csrf/issues/1).
 
 If nothing is passed in via stdin, then the user will be prompted for the password (interactively).
 
@@ -94,7 +90,7 @@ curl -s https://account.pbs.org/accounts/profile/ | grep Zip
 However, since doing so requires being logged in, here's one way to do it using curl-auth-csrf:
 
 ```
-pass pbs.org | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
+pass pbs.org | ./curl-auth-csrf.py -i https://account.pbs.org/accounts/login/ -d email=bob@email.com -u https://account.pbs.org/accounts/profile/ -j https://account.pbs.org/accounts/logout/ https://account.pbs.org/accounts/profile/ | grep Zip
 ```
 
 Notes:
@@ -109,7 +105,7 @@ Notes:
 Another example, with a logout page and multiple pages fetched while logged in:
 
 ```
-pass thefastpark.com | tr '\n' 'x' | sed 's/x$//' | ./curl-auth-csrf.py -i https://www.thefastpark.com/ -d username=bob@email.com -u https://www.thefastpark.com/myrewards/history/ -j https://www.thefastpark.com/myrewards/logout/ https://www.thefastpark.com/myrewards/history/ https://www.thefastpark.com/myrewards/redeempoints/ | egrep -i '(Total Points|points available)'
+pass thefastpark.com | ./curl-auth-csrf.py -i https://www.thefastpark.com/ -d username=bob@email.com -u https://www.thefastpark.com/myrewards/history/ -j https://www.thefastpark.com/myrewards/logout/ https://www.thefastpark.com/myrewards/history/ https://www.thefastpark.com/myrewards/redeempoints/ | egrep -i '(Total Points|points available)'
 ```
 
 ## Limitations

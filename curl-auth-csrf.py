@@ -17,7 +17,7 @@ import requests
 import lxml.html
 
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -155,7 +155,8 @@ def main():
         password = getpass.getpass(stream=sys.stderr)
     else:
         logging.debug('Reading password from stdin ...')
-        password = sys.stdin.read()
+        # trailing newlines are stripped, to allow output from password managers like `pass`
+        password = sys.stdin.read().rstrip('\r\n')
 
     logging.debug('Allocating session ...')
     session = requests.session()
