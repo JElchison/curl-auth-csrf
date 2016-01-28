@@ -82,7 +82,10 @@ def identify_password_field_name(args, login_form):
         password_field_name = args.password_field_name
     else:
         logging.debug('No password field specified at command line.  Identifying dynamically...')
-        password_field = list(set(login_form.xpath(".//input[@type='password']")))[0]
+        password_fields = list(set(login_form.xpath(".//input[@type='password']")))
+        if len(password_fields) != 1:
+            raise Exception("Cannot identify password field dynamically.  Try again with '-p'.")
+        password_field = password_fields[0]
         password_field_name = password_field.name
 
     logging.info('Identified password field name as ' + password_field_name)
