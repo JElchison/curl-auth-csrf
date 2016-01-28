@@ -189,7 +189,7 @@ def main():
     # submit login form
     ####################
 
-    if login_form.method == "get":
+    if login_form.method.lower() == "get":
         logging.info('Performing GET on form submission ...')
         result = session.get(action_url, data, verify=False, headers={'Referer': result.url, 'User-Agent': args.user_agent_str})
     else:
