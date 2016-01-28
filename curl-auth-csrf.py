@@ -17,7 +17,7 @@ import requests
 import lxml.html
 
 
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 
 
 logging.basicConfig(level=logging.WARNING)
