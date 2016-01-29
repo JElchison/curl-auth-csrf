@@ -91,7 +91,7 @@ Password:
 If your username is `bob@email.com` for `pbs.org`, following is how you might normally scrape the zip code from your user profile:
 
 ```
-curl -s https://account.pbs.org/accounts/profile/ | grep Zip
+curl -sL https://account.pbs.org/accounts/profile/ | grep Zip
 ```
 
 However, since doing so requires being logged in, here's one way to do it using curl-auth-csrf:
