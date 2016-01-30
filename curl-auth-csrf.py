@@ -11,7 +11,10 @@ import logging
 import sys
 import argparse
 import getpass
-import urlparse
+try:
+   import urllib.parse as urlparse
+except ImportError:
+   import urlparse
 import os
 import requests
 import lxml.html
@@ -72,7 +75,7 @@ def identify_login_form(args, result):
             raise Exception("Cannot identify login form dynamically.  Try again with '-f'.")
         login_form = login_forms[0]
 
-    logging.debug('Identified login form as ' + lxml.html.tostring(login_form))
+    logging.debug('Identified login form as ' + lxml.html.tostring(login_form).decode('utf-8'))
     return login_form
 
 
@@ -138,10 +141,10 @@ def calculate_action_url(login_form, result):
 
 def verify_login_success(args, result):
     if args.success_url and args.success_url not in result.url:
-        logging.debug("content = " + result.content)
+        logging.debug("content = " + result.content.decode('utf-8'))
         raise Exception("Specified success_url '%s' not in result URL '%s'.  Failed to login?" % (args.success_url, result.url))
-    if args.success_text and args.success_text not in result.content:
-        logging.debug("content = " + result.content)
+    if args.success_text and args.success_text not in result.content.decode('utf-8'):
+        logging.debug("content = " + result.content.decode('utf-8'))
         raise Exception("Specified success_text not in result content.  Failed to login?")
 
     logging.info("Login was successful")
@@ -210,7 +213,7 @@ def main():
         logging.info('Performing GET on %s ...' % url_after_login)
         result = session.get(url_after_login, verify=False, headers={'Referer': result.url, 'User-Agent': args.user_agent_str})
         logging.info("Request result = %d", result.status_code)
-        args.output.write(result.content)
+        args.output.write(result.content.decode('utf-8'))
 
     #########
     # logout

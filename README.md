@@ -6,6 +6,7 @@ Useful for scraping HTML normally only accessible when logged in.
 ## Features
 
 * Runs on any OS supported by Python
+* Runs in Python2 and Python3
 * Allows specifying arbitrary GET/POST data to be included with login form submission (i.e. username)
 * Reads password from stdin (to avoid the plain-text password showing up in shell history)
 * Parses login form and dynamically replicates all form inputs (including hidden ones such as `csrfmiddlewaretoken`)
@@ -125,6 +126,10 @@ This script only handles standard logins involving a single form submission with
 * Logins involving any client-side password transformations (i.e. passing a hashed password to the server)
 
 If all you need is [basic HTTP authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), this script is overkill.  [cURL](http://curl.haxx.se/) and [Wget](https://www.gnu.org/software/wget/) can do that out-of-box.
+
+## Gotchas
+
+* If you're redirecting (or piping) output to file (or another utility) and receiving an `UnicodeEncodeError` exception, try setting `PYTHONIOENCODING=UTF-8` in your terminal.  See [this post](https://stackoverflow.com/questions/4545661/unicodedecodeerror-when-redirecting-to-file).
 
 ## Disclaimer
 
