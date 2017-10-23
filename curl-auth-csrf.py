@@ -21,7 +21,7 @@ import string
 import lxml.html
 
 
-VERSION = '1.2.0'
+VERSION = '1.2.1'
 
 
 logging.basicConfig(level=logging.WARNING)
