@@ -17,6 +17,7 @@ except ImportError:
    import urlparse
 import os
 import requests
+import string
 import lxml.html
 
 
@@ -131,7 +132,7 @@ def setup_data_dictionary(args, login_form, password_field_name, password):
 def calculate_action_url(login_form, result):
     if "://" not in login_form.action:
         url_parts = urlparse.urlparse(result.url)
-        action_url = "%s://%s%s/%s" % (url_parts.scheme, url_parts.netloc, os.path.dirname(url_parts.path), login_form.action)
+        action_url = "%s://%s%s/%s" % (url_parts.scheme, url_parts.netloc, os.path.dirname(url_parts.path), string.lstrip(login_form.action, '.'))
     else:
         action_url = login_form.action
 
