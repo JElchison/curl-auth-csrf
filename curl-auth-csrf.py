@@ -12,16 +12,20 @@ import sys
 import argparse
 import getpass
 try:
-   import urllib.parse as urlparse
+    from urlparse import urljoin  # Python2
 except ImportError:
-   import urlparse
+    from urllib.parse import urljoin  # Python3
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 import os
 import requests
 import string
 import lxml.html
 
 
-VERSION = '1.2.1'
+VERSION = '1.3.0'
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -130,11 +134,7 @@ def setup_data_dictionary(args, login_form, password_field_name, password):
 
 
 def calculate_action_url(login_form, result):
-    if "://" not in login_form.action:
-        url_parts = urlparse.urlparse(result.url)
-        action_url = "%s://%s%s/%s" % (url_parts.scheme, url_parts.netloc, os.path.dirname(url_parts.path), string.lstrip(login_form.action, '.'))
-    else:
-        action_url = login_form.action
+    action_url = urljoin(result.url, login_form.action)
 
     logging.info("Calculated action_url as " + action_url)
     return action_url
